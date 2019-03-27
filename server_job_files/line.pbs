@@ -6,4 +6,4 @@
 #PBS -l walltime=72:00:00
 #PBS -W group_list=x-ccast-prj-luliu
 cd $PBS_O_WORKDIR
-./line -train data.txt -output line_output.txt -binary 1 -size 2 -order 2 -negative 5 -samples 100 -rho 0.025 -threads 20
+./line -train data.txt -output line_output.txt -binary 1 -size 10 -order 2 -negative 5 -samples 100 -rho 0.025 -threads 20
