@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
+import powerlaw
 import numpy as np
 import os
 
@@ -13,9 +14,7 @@ with open(file) as p:
         s=line.split()
         information_list.append(float(s[1]))
 
-fig, ax = plt.subplots()
-ax.hist(information_list, bins=35)
-plt.xlabel('Information Centrality Value')
-plt.ylabel('Frequency')
-plt.title('Information Centrality Histogram')
-plt.savefig("Information_Centrality_Histogram.png")
+fit = powerlaw.Fit(information_list)
+fig2 = fit.plot_pdf(color='b', linewidth=2)
+fit.power_law.plot_pdf(color='b', linestyle='--', ax=fig2)
+plt.savefig("Information_Centrality_Powerlaw.png")

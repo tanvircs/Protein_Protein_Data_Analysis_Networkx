@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
+import powerlaw
 import numpy as np
 import os
 
@@ -13,9 +14,7 @@ with open(file) as p:
         s=line.split()
         load_list.append(float(s[1]))
 
-fig, ax = plt.subplots()
-ax.hist(load_list, bins=35)
-plt.xlabel('Load Centrality Value')
-plt.ylabel('Frequency')
-plt.title('Load Centrality Histogram')
-plt.savefig("Load_Centrality_Histogram.png")
+fit = powerlaw.Fit(load_list)
+fig2 = fit.plot_pdf(color='b', linewidth=2)
+fit.power_law.plot_pdf(color='b', linestyle='--', ax=fig2)
+plt.savefig("Load_Centrality_Powerlaw.png")
