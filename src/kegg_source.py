@@ -16,16 +16,16 @@ labels = []
 with open(file) as p:
     for i in p:
         s = i.split()
-        labels.append(s[0])
+        labels.append(s[0][5:])
         if s[1] in first_dict:
             a= first_dict[s[1]]
             a.append(s[0])
         else:
-            a=[]
-            a.append(s[0])
-            first_dict[s[1]]=a
-            
-# Calculate all the unique lables and then sorted the list
+            #first_dict[s[1]]=a
+            if s[0].startswith('path:'):
+                temp_val = (s[0][5:]) 
+                first_dict[s[1]]=[temp_val]
+       
             
 unique_labels = set(labels)
 sorted_unique_labels= sorted(unique_labels)
@@ -72,9 +72,11 @@ np_array = np.array(zeros_array)
 for k,v in final_dict.items():
     key_index = sorted_keys_list.index(k)
     for value in v:
-        value_key = sorted_unique_labels.index(value)
-        np_array[key_index,value_key]=1
+        if value.startswith('path:'):
+            value = value[5:]
+            value_key = sorted_unique_labels.index(value)
+            np_array[key_index,value_key]=1
 
 # Finally save numpy array into a mat file
         
-sio.savemat('Final_Kegg.mat',{'final_kegg':np_array})
+sio.savemat('Final_Kegg.mat',{'final_kegg':np_array,'proteins':sorted_keys_list,'labels':sorted_unique_labels})
