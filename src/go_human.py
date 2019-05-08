@@ -4,7 +4,7 @@ import scipy.io as sio
 
 # Load the dataset
 
-file = os.path.join('data','human_GO_2_string.tsv')
+file = os.path.join('human_GO_2_string.tsv')
 
 first_dict = {}
 labels = []
@@ -81,4 +81,4 @@ for k,v in final_dict.items():
 
 # Finally save numpy array into a mat file
         
-sio.savemat('Human_Go.mat',{'human_go':np_array})
+sio.savemat('test_human_go.mat',{'human_go':np_array,'proteins':sorted_keys_list,'labels':sorted_unique_labels})
